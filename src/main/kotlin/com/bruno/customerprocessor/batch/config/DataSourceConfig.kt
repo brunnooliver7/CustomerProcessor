@@ -1,5 +1,6 @@
 package com.bruno.customerprocessor.batch.config
 
+import jakarta.persistence.EntityManagerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
@@ -17,8 +18,9 @@ class DataSourceConfig {
 
     @Bean
     @Primary
-    fun customersJpaTransactionManager(dataSource: DataSource): JpaTransactionManager {
+    fun customersJpaTransactionManager(entityManagerFactory: EntityManagerFactory, dataSource: DataSource): JpaTransactionManager {
         val tm = JpaTransactionManager()
+        tm.entityManagerFactory = entityManagerFactory
         tm.dataSource = dataSource
         return tm
     }
