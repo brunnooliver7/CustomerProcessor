@@ -20,7 +20,7 @@ class CreateExternalDataStep {
         @Qualifier("customersDataSourceTransactionManager") customersDataSourceTransactionManager: DataSourceTransactionManager,
         @Qualifier("customersJpaTransactionManager") customersJpaTransactionManager: JpaTransactionManager
     ): Step {
-        return StepBuilder("createExternalDataStep", jobRepository)
+        return StepBuilder("Create External Data Step", jobRepository)
             .tasklet(createExternalDataTasklet, customersDataSourceTransactionManager)
             .transactionManager(customersJpaTransactionManager)
             .build()
