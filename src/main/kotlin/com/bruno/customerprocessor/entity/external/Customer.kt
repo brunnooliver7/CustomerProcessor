@@ -16,7 +16,9 @@ data class Customer(
     @Column(name = "last_name", length = 50)
     val lastName: String = "",
 
-    val age: Int = 0
-) {
-    constructor() : this(0, "", "", 0)
-}
+    val age: Int = 0,
+
+    @Column(name = "ssn", length = 11, unique = true)
+    var ssn: String = ""
+
+)
