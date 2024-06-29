@@ -3,7 +3,7 @@ package com.bruno.customerprocessor.entity.domain
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "rule")
+@Table(name = "[rule]")
 data class Rule(
 
     @Id
