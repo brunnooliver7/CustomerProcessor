@@ -6,6 +6,8 @@ services:
     build: .
     ports:
       - "8080:8080"
+    environment:
+      DATASOURCE_URL: jdbc:sqlserver://db:1433;encrypt=false;trustServerCertificate=true
     depends_on:
       - db
 
