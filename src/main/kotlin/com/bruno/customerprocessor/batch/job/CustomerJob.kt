@@ -15,11 +15,13 @@ class CustomerJob {
     fun customerJobBean(
         jobRepository: JobRepository,
         @Qualifier("generateExternalDataStep") generateExternalDataStep: Step,
-        @Qualifier("generateDomainDataStep") generateDomainDataStep: Step
+        @Qualifier("generateDomainDataStep") generateDomainDataStep: Step,
+        @Qualifier("gatherExtDataStep") gatherExternalDataStep: Step
     ): Job {
         return JobBuilder("Customer Job", jobRepository)
             .start(generateExternalDataStep)
             .next(generateDomainDataStep)
+            .next(gatherExternalDataStep)
             .build()
     }
 
