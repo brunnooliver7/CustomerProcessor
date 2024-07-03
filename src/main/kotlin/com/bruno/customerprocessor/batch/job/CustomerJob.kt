@@ -16,12 +16,14 @@ class CustomerJob {
         jobRepository: JobRepository,
         @Qualifier("generateExternalDataStep") generateExternalDataStep: Step,
         @Qualifier("generateDomainDataStep") generateDomainDataStep: Step,
-        @Qualifier("gatherExtDataStep") gatherExternalDataStep: Step
+        @Qualifier("gatherExtDataStep") gatherExternalDataStep: Step,
+        @Qualifier("loanRulesStep") loanRulesStep: Step
     ): Job {
         return JobBuilder("Customer Job", jobRepository)
             .start(generateExternalDataStep)
             .next(generateDomainDataStep)
             .next(gatherExternalDataStep)
+            .next(loanRulesStep)
             .build()
     }
 
