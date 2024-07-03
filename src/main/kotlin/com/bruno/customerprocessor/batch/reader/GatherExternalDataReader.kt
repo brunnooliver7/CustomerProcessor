@@ -4,6 +4,7 @@ import com.bruno.customerprocessor.batch.utils.FileUtils
 import com.bruno.customerprocessor.entity.dinamic.ExternalData
 import org.springframework.batch.item.ItemReader
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.jdbc.core.RowMapper
@@ -14,7 +15,7 @@ import javax.sql.DataSource
 class GatherExternalDataReader {
 
     @Bean
-    fun gatherExtDataReader(dataSource: DataSource): ItemReader<ExternalData> {
+    fun gatherExtDataReader(@Qualifier("customersDataSource") dataSource: DataSource): ItemReader<ExternalData> {
         return JdbcCursorItemReaderBuilder<ExternalData>()
             .name("External Data Reader")
             .dataSource(dataSource)
