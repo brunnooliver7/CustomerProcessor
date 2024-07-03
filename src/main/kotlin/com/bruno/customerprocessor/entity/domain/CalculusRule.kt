@@ -3,8 +3,8 @@ package com.bruno.customerprocessor.entity.domain
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "[rule]")
-data class Rule(
+@Table(name = "calculus_rule")
+data class CalculusRule(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ data class Rule(
     @JoinColumn(name = "id_risk", nullable = false)
     var risk: Risk? = null,
 
-) {
+    ) {
     constructor(percentageId: Long, debtDelayId: Long, riskId: Long) :
             this(0, null, null, null) {
         this.percentage = Percentage(id = percentageId)

@@ -3,7 +3,7 @@ package com.bruno.customerprocessor.service
 import com.bruno.customerprocessor.entity.domain.DebtDelay
 import com.bruno.customerprocessor.entity.domain.Percentage
 import com.bruno.customerprocessor.entity.domain.Risk
-import com.bruno.customerprocessor.entity.domain.Rule
+import com.bruno.customerprocessor.entity.domain.CalculusRule
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
 import jakarta.transaction.Transactional
@@ -54,11 +54,11 @@ class DomainDataService {
     fun generateRisks() {
         logger.info("Generating Risks")
 
-        val r1 = Risk(risk = "A", minRevenue = BigDecimal(0), maxRevenue = BigDecimal(1_000))
-        val r2 = Risk(risk = "B", minRevenue = BigDecimal(1_000), maxRevenue = BigDecimal(5_000))
-        val r3 = Risk(risk = "C", minRevenue = BigDecimal(5_000), maxRevenue = BigDecimal(10_000))
-        val r4 = Risk(risk = "D", minRevenue = BigDecimal(10_000), maxRevenue = BigDecimal(50_000))
-        val r5 = Risk(risk = "E", minRevenue = BigDecimal(50_000), maxRevenue = BigDecimal(10E12))
+        val r1 = Risk(risk = "A", minRevenue = BigDecimal(12_000), maxRevenue = BigDecimal(10E12))
+        val r2 = Risk(risk = "B", minRevenue = BigDecimal(8_000), maxRevenue = BigDecimal(12_000))
+        val r3 = Risk(risk = "C", minRevenue = BigDecimal(5_000), maxRevenue = BigDecimal(8_000))
+        val r4 = Risk(risk = "D", minRevenue = BigDecimal(3_000), maxRevenue = BigDecimal(5_000))
+        val r5 = Risk(risk = "E", minRevenue = BigDecimal(0), maxRevenue = BigDecimal(3_000))
 
         val risks = listOf(r1, r2, r3, r4, r5)
 
@@ -69,38 +69,38 @@ class DomainDataService {
     fun generateRules() {
         logger.info("Generating Rules")
 
-        val rule1 = Rule(debtDelayId = 1, riskId = 1, percentageId = 1)
-        val rule2 = Rule(debtDelayId = 1, riskId = 2, percentageId = 1)
-        val rule3 = Rule(debtDelayId = 1, riskId = 3, percentageId = 2)
-        val rule4 = Rule(debtDelayId = 1, riskId = 4, percentageId = 2)
-        val rule5 = Rule(debtDelayId = 1, riskId = 5, percentageId = 3)
-        val rule6 = Rule(debtDelayId = 2, riskId = 1, percentageId = 1)
-        val rule7 = Rule(debtDelayId = 2, riskId = 2, percentageId = 2)
-        val rule8 = Rule(debtDelayId = 2, riskId = 3, percentageId = 2)
-        val rule9 = Rule(debtDelayId = 2, riskId = 4, percentageId = 3)
-        val rule10 = Rule(debtDelayId = 2, riskId = 5, percentageId = 4)
-        val rule11 = Rule(debtDelayId = 3, riskId = 1, percentageId = 2)
-        val rule12 = Rule(debtDelayId = 3, riskId = 2, percentageId = 2)
-        val rule13 = Rule(debtDelayId = 3, riskId = 3, percentageId = 3)
-        val rule14 = Rule(debtDelayId = 3, riskId = 4, percentageId = 4)
-        val rule15 = Rule(debtDelayId = 3, riskId = 5, percentageId = 4)
-        val rule16 = Rule(debtDelayId = 4, riskId = 1, percentageId = 2)
-        val rule17 = Rule(debtDelayId = 4, riskId = 2, percentageId = 3)
-        val rule18 = Rule(debtDelayId = 4, riskId = 3, percentageId = 4)
-        val rule19 = Rule(debtDelayId = 4, riskId = 4, percentageId = 4)
-        val rule20 = Rule(debtDelayId = 4, riskId = 5, percentageId = 5)
-        val rule21 = Rule(debtDelayId = 5, riskId = 1, percentageId = 3)
-        val rule22 = Rule(debtDelayId = 5, riskId = 2, percentageId = 4)
-        val rule23 = Rule(debtDelayId = 5, riskId = 3, percentageId = 4)
-        val rule24 = Rule(debtDelayId = 5, riskId = 4, percentageId = 5)
-        val rule25 = Rule(debtDelayId = 5, riskId = 5, percentageId = 5)
+        val calculusRule1 = CalculusRule(debtDelayId = 1, riskId = 1, percentageId = 1)
+        val calculusRule2 = CalculusRule(debtDelayId = 1, riskId = 2, percentageId = 1)
+        val calculusRule3 = CalculusRule(debtDelayId = 1, riskId = 3, percentageId = 2)
+        val calculusRule4 = CalculusRule(debtDelayId = 1, riskId = 4, percentageId = 2)
+        val calculusRule5 = CalculusRule(debtDelayId = 1, riskId = 5, percentageId = 3)
+        val calculusRule6 = CalculusRule(debtDelayId = 2, riskId = 1, percentageId = 1)
+        val calculusRule7 = CalculusRule(debtDelayId = 2, riskId = 2, percentageId = 2)
+        val calculusRule8 = CalculusRule(debtDelayId = 2, riskId = 3, percentageId = 2)
+        val calculusRule9 = CalculusRule(debtDelayId = 2, riskId = 4, percentageId = 3)
+        val calculusRule10 = CalculusRule(debtDelayId = 2, riskId = 5, percentageId = 4)
+        val calculusRule11 = CalculusRule(debtDelayId = 3, riskId = 1, percentageId = 2)
+        val calculusRule12 = CalculusRule(debtDelayId = 3, riskId = 2, percentageId = 2)
+        val calculusRule13 = CalculusRule(debtDelayId = 3, riskId = 3, percentageId = 3)
+        val calculusRule14 = CalculusRule(debtDelayId = 3, riskId = 4, percentageId = 4)
+        val calculusRule15 = CalculusRule(debtDelayId = 3, riskId = 5, percentageId = 4)
+        val calculusRule16 = CalculusRule(debtDelayId = 4, riskId = 1, percentageId = 2)
+        val calculusRule17 = CalculusRule(debtDelayId = 4, riskId = 2, percentageId = 3)
+        val calculusRule18 = CalculusRule(debtDelayId = 4, riskId = 3, percentageId = 4)
+        val calculusRule19 = CalculusRule(debtDelayId = 4, riskId = 4, percentageId = 4)
+        val calculusRule20 = CalculusRule(debtDelayId = 4, riskId = 5, percentageId = 5)
+        val calculusRule21 = CalculusRule(debtDelayId = 5, riskId = 1, percentageId = 3)
+        val calculusRule22 = CalculusRule(debtDelayId = 5, riskId = 2, percentageId = 4)
+        val calculusRule23 = CalculusRule(debtDelayId = 5, riskId = 3, percentageId = 4)
+        val calculusRule24 = CalculusRule(debtDelayId = 5, riskId = 4, percentageId = 5)
+        val calculusRule25 = CalculusRule(debtDelayId = 5, riskId = 5, percentageId = 5)
 
         val rules = listOf(
-            rule1, rule2, rule3, rule4, rule5,
-            rule6, rule7, rule8, rule9, rule10,
-            rule11, rule12, rule13, rule14, rule15,
-            rule16, rule17, rule18, rule19, rule20,
-            rule21, rule22, rule23, rule24, rule25,
+            calculusRule1, calculusRule2, calculusRule3, calculusRule4, calculusRule5,
+            calculusRule6, calculusRule7, calculusRule8, calculusRule9, calculusRule10,
+            calculusRule11, calculusRule12, calculusRule13, calculusRule14, calculusRule15,
+            calculusRule16, calculusRule17, calculusRule18, calculusRule19, calculusRule20,
+            calculusRule21, calculusRule22, calculusRule23, calculusRule24, calculusRule25,
         )
 
         persistEntities(rules)
