@@ -150,7 +150,7 @@ class DataGeneratorService {
                 bankAccount = bankAccounts.find { ba -> ba.customer?.id == customers[i - 1].id },
                 amount = BigDecimalUtils.randomBetween(
                     BigDecimal.valueOf(1_000),
-                    BigDecimal.valueOf(50_000)
+                    BigDecimal.valueOf(15_000)
                 ),
             )
 
