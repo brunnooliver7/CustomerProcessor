@@ -20,12 +20,4 @@ data class BankAccount(
 
     @Column(nullable = false, precision = 10, scale = 2)
     val balance: BigDecimal = BigDecimal.ZERO
-) {
-    constructor() : this(
-        0,
-        0,
-        0,
-        "",
-        BigDecimal.ZERO
-    )
-}
+)
