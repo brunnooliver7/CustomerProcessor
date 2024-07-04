@@ -11,9 +11,7 @@ data class Loan(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    val customer: Customer? = null,
+    val customerId: Long,
 
     @Column(precision = 10, scale = 2)
     val loan: BigDecimal = BigDecimal.ZERO,
@@ -25,13 +23,4 @@ data class Loan(
     val debt: BigDecimal = BigDecimal.ZERO,
 
     val delay: Int? = null
-) {
-    constructor() : this(
-        id = 0,
-        customer = null,
-        loan = BigDecimal.ZERO,
-        payed = BigDecimal.ZERO,
-        debt = BigDecimal.ZERO,
-        delay = null
-    )
-}
+)
