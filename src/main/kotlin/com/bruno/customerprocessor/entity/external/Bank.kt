@@ -12,6 +12,4 @@ data class Bank(
 
     @Column(name = "bank_name", nullable = false, length = 100)
     val bankName: String = ""
-) {
-    constructor() : this(0, "")
-}
+)

@@ -26,8 +26,8 @@ class GenerateRevenuesReader {
     private fun revenueRowMapper(): RowMapper<RevenueData> {
         return RowMapper { rs, _ ->
             RevenueData(
-                customerId = rs.getLong("ID_CUSTOMER"),
-                bankAccountId = rs.getLong("ID_BANK_ACCOUNT"),
+                customerId = rs.getLong("CUSTOMER_ID"),
+                bankAccountId = rs.getLong("BANK_ACCOUNT_ID"),
             )
         }
     }

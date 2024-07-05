@@ -18,7 +18,7 @@ data class Risk(
     val minRevenue: BigDecimal = BigDecimal.ZERO,
 
     @Column(precision = 16, scale = 2)
-    val maxRevenue: BigDecimal = BigDecimal.ZERO,
+    val maxRevenue: BigDecimal = BigDecimal.ZERO
 
 ) {
     constructor(id: Long): this(0, "", BigDecimal.ZERO, BigDecimal.ZERO) {

@@ -1,6 +1,6 @@
-SELECT ED.loan_id AS ID_LOAN,
+SELECT ED.loan_id AS LOAN_ID,
        CR.id      AS ID_CALCULUS_RULE,
-       LR.id      AS ID_LOAN_RULE
+       LR.id      AS LOAN_RULE_ID
 FROM DBO.external_data ED
          OUTER APPLY (SELECT *
                       FROM DBO.debt_delay DD
@@ -12,11 +12,11 @@ FROM DBO.external_data ED
                         AND R.max_revenue > ED.revenue_amount) R
          OUTER APPLY (SELECT *
                       FROM DBO.calculus_rule CR
-                      WHERE CR.id_debt_delay = DD.id
-                        AND CR.id_risk = R.id) CR
+                      WHERE CR.debt_delay_id = DD.id
+                        AND CR.risk_id = R.id) CR
          OUTER APPLY (SELECT *
                       FROM DBO.percentage P
-                      WHERE P.id = CR.id_percentage) P
+                      WHERE P.id = CR.percentage_id) P
          OUTER APPLY (SELECT *
                       FROM DBO.loan_rule LR
                       WHERE LR.id = ED.loan_id) LR

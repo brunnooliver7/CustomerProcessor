@@ -27,7 +27,7 @@ class CalculusResultReader {
         return RowMapper { rs, _ ->
             CalculusRead(
                 calculusResultId = rs.getLong("ID_CALCULUS_RESULT"),
-                loanId = rs.getLong("ID_LOAN"),
+                loanId = rs.getLong("LOAN_ID"),
                 debt = rs.getBigDecimal("DEBT"),
                 feePercentage = rs.getInt("PERCENTAGE"),
             )

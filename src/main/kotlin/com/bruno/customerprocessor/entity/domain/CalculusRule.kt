@@ -11,16 +11,16 @@ data class CalculusRule(
     val id: Long = 0,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_percentage", nullable = false)
+    @JoinColumn(name = "percentage_id", nullable = false)
     var percentage: Percentage? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_debt_delay", nullable = false)
+    @JoinColumn(name = "debt_delay_id", nullable = false)
     var debtDelay: DebtDelay? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_risk", nullable = false)
-    var risk: Risk? = null,
+    @JoinColumn(name = "risk_id", nullable = false)
+    var risk: Risk? = null
 
     ) {
     constructor(percentageId: Long, debtDelayId: Long, riskId: Long) :

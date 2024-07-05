@@ -26,8 +26,8 @@ class LoanRuleReader {
     private fun loadRuleRowMapper(): RowMapper<LoanRule> {
         return RowMapper { rs, _ ->
             LoanRule(
-                id = rs.getLong("ID_LOAN_RULE"),
-                loanId = rs.getLong("ID_LOAN"),
+                id = rs.getLong("LOAN_RULE_ID"),
+                loanId = rs.getLong("LOAN_ID"),
                 calculusRuleId = rs.getLong("ID_CALCULUS_RULE")
             )
         }

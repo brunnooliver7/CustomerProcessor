@@ -14,6 +14,6 @@ data class DebtDelay(
     val min: Int = 0,
 
     @Column(name = "max", nullable = false)
-    val max: Int = 0,
+    val max: Int = 0
 
 )
