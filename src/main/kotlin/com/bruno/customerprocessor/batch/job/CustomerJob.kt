@@ -19,14 +19,14 @@ class CustomerJob {
         @Qualifier("populateReferenceTablesStep") populateReferenceTablesStep: Step,
         @Qualifier("collectDataStep") collectDataStep: Step,
         @Qualifier("calculusRuleStep") calculusRuleStep: Step,
-        @Qualifier("calculusStep") calculusStep: Step
+        @Qualifier("calculusFlow") calculusFlow: Flow
     ): Job {
         return JobBuilder("Customer Job", jobRepository)
             .start(generateDataFlow)
             .next(populateReferenceTablesStep)
             .next(collectDataStep)
             .next(calculusRuleStep)
-            .next(calculusStep)
+            .next(calculusFlow)
             .end()
             .build()
     }

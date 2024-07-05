@@ -15,3 +15,4 @@ FROM external_data ED
          OUTER APPLY (SELECT *
                       FROM DBO.calculus C
                       where C.loan_id = ED.loan_id) CRE
+WHERE ED.bank_id = ${bank_id}

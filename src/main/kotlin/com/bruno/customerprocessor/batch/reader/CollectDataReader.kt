@@ -31,6 +31,7 @@ class CollectDataReader {
             ExternalData(
                 id = rs.getLong("ID"),
                 ssn = rs.getString("SSN"),
+                bankId = rs.getLong("BANK_ID"),
                 bankName = rs.getString("BANK_NAME"),
                 bankAccountNumber = rs.getString("BANK_ACCOUNT_NUMBER"),
                 bankAccountBalance = rs.getBigDecimal("BANK_ACCOUNT_BALANCE"),

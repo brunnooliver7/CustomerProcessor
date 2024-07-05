@@ -1,6 +1,7 @@
 MERGE INTO DBO.external_data
 USING (VALUES (:id,
                :ssn,
+               :bankId,
                :bankName,
                :bankAccountNumber,
                :bankAccountBalance,
@@ -14,6 +15,7 @@ USING (VALUES (:id,
     AS source (
                id,
                ssn,
+               bankId,
                bankName,
                bankAccountNumber,
                bankAccountBalance,
@@ -29,6 +31,7 @@ ON DBO.external_data.id = source.id
 WHEN MATCHED THEN
     UPDATE
     SET DBO.external_data.ssn                  = source.ssn,
+        DBO.external_data.bank_id              = source.bankId,
         DBO.external_data.bank_name            = source.bankName,
         DBO.external_data.bank_account_number  = source.bankAccountNumber,
         DBO.external_data.bank_account_balance = source.bankAccountBalance,
@@ -41,6 +44,7 @@ WHEN MATCHED THEN
         DBO.external_data.created_at           = source.createdAt
 WHEN NOT MATCHED THEN
     INSERT (ssn,
+            bank_id,
             bank_name,
             bank_account_number,
             bank_account_balance,
@@ -52,6 +56,7 @@ WHEN NOT MATCHED THEN
             delay,
             created_at)
     VALUES (source.ssn,
+            source.bankId,
             source.bankName,
             source.bankAccountNumber,
             source.bankAccountBalance,

@@ -13,6 +13,7 @@ data class ExternalData (
     val id: Long = 0,
 
     val ssn: String,
+    val bankId: Long,
     val bankName: String,
     val bankAccountNumber: String,
     val bankAccountBalance: BigDecimal = BigDecimal.ZERO,

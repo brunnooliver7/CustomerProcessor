@@ -1,5 +1,6 @@
 SELECT ED.id             AS ID,
        C.ssn             AS SSN,
+       B.id              AS BANK_ID,
        B.bank_name       AS BANK_NAME,
        BA.account_number AS BANK_ACCOUNT_NUMBER,
        BA.balance        AS BANK_ACCOUNT_BALANCE,
@@ -13,7 +14,7 @@ FROM DBO.customer C
          OUTER APPLY (SELECT BA.bank_id, BA.account_number, BA.balance
                       FROM DBO.bank_account BA
                       WHERE BA.customer_id = C.id) BA
-         OUTER APPLY(SELECT B.bank_name
+         OUTER APPLY(SELECT B.id, B.bank_name
                      FROM DBO.bank B
                      WHERE B.id = BA.bank_id) B
          OUTER APPLY (SELECT RV.amount

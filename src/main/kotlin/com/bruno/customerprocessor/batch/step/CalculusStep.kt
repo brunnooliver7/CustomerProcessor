@@ -16,15 +16,63 @@ import org.springframework.transaction.PlatformTransactionManager
 @Configuration(value = "CalculusStepConfig")
 class CalculusStep {
 
+//    @Bean
+//    fun calculusStep(
+//        jobRepository: JobRepository,
+//        transactionManager: PlatformTransactionManager,
+//        @Qualifier("calculusReader") calculusReader: ItemReader<CalculusRead>,
+//        @Qualifier("calculusProcessor") calculusProcessor: ItemProcessor<CalculusRead, Calculus>,
+//        @Qualifier("calculusWriter") calculusWriter: ItemWriter<Calculus>
+//    ): Step {
+//        return StepBuilder("Calculus Step", jobRepository)
+//            .chunk<CalculusRead, Calculus>(1_000, transactionManager)
+//            .reader(calculusReader)
+//            .processor(calculusProcessor)
+//            .writer(calculusWriter)
+//            .build()
+//    }
+
     @Bean
-    fun calculusStep(
+    fun calculusStepBank1(
         jobRepository: JobRepository,
         transactionManager: PlatformTransactionManager,
-        @Qualifier("calculusReader") calculusReader: ItemReader<CalculusRead>,
+        @Qualifier("calculusReaderBank1") calculusReader: ItemReader<CalculusRead>,
         @Qualifier("calculusProcessor") calculusProcessor: ItemProcessor<CalculusRead, Calculus>,
         @Qualifier("calculusWriter") calculusWriter: ItemWriter<Calculus>
     ): Step {
-        return StepBuilder("Calculus Step", jobRepository)
+        return StepBuilder("Calculus Step - Bank 1", jobRepository)
+            .chunk<CalculusRead, Calculus>(1_000, transactionManager)
+            .reader(calculusReader)
+            .processor(calculusProcessor)
+            .writer(calculusWriter)
+            .build()
+    }
+
+    @Bean
+    fun calculusStepBank2(
+        jobRepository: JobRepository,
+        transactionManager: PlatformTransactionManager,
+        @Qualifier("calculusReaderBank2") calculusReader: ItemReader<CalculusRead>,
+        @Qualifier("calculusProcessor") calculusProcessor: ItemProcessor<CalculusRead, Calculus>,
+        @Qualifier("calculusWriter") calculusWriter: ItemWriter<Calculus>
+    ): Step {
+        return StepBuilder("Calculus Step - Bank 2", jobRepository)
+            .chunk<CalculusRead, Calculus>(1_000, transactionManager)
+            .reader(calculusReader)
+            .processor(calculusProcessor)
+            .writer(calculusWriter)
+            .build()
+    }
+
+    @Bean
+    fun calculusStepBank3(
+        jobRepository: JobRepository,
+        transactionManager: PlatformTransactionManager,
+        @Qualifier("calculusReaderBank3") calculusReader: ItemReader<CalculusRead>,
+        @Qualifier("calculusProcessor") calculusProcessor: ItemProcessor<CalculusRead, Calculus>,
+        @Qualifier("calculusWriter") calculusWriter: ItemWriter<Calculus>
+    ): Step {
+        return StepBuilder("Calculus Step - Bank 3", jobRepository)
             .chunk<CalculusRead, Calculus>(1_000, transactionManager)
             .reader(calculusReader)
             .processor(calculusProcessor)
