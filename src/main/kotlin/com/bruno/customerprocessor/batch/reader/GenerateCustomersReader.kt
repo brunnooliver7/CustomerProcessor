@@ -1,6 +1,6 @@
 package com.bruno.customerprocessor.batch.reader
 
-import com.bruno.customerprocessor.model.CustomerData
+import com.bruno.customerprocessor.model.CustomerRead
 import org.springframework.batch.item.file.FlatFileItemReader
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper
@@ -10,19 +10,21 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
 import javax.sql.DataSource
 
-@Configuration
+@Configuration(value = "GenerateCustomersReaderConfig")
 class GenerateCustomersReader {
 
     @Bean
-    fun customersReader(@Qualifier("customersDataSource") dataSource: DataSource): FlatFileItemReader<CustomerData> {
-        return FlatFileItemReaderBuilder<CustomerData>()
-            .name("generateCustomersReader")
+    fun generateCustomersReader(
+        @Qualifier("customersDataSource") dataSource: DataSource
+    ): FlatFileItemReader<CustomerRead> {
+        return FlatFileItemReaderBuilder<CustomerRead>()
+            .name("Generate Customers Reader")
             .resource(ClassPathResource("csv/customer.csv"))
             .linesToSkip(1)
             .delimited()
             .names("firstName", "lastName", "ssn", "age")
-            .fieldSetMapper(BeanWrapperFieldSetMapper<CustomerData>().apply {
-                setTargetType(CustomerData::class.java)
+            .fieldSetMapper(BeanWrapperFieldSetMapper<CustomerRead>().apply {
+                setTargetType(CustomerRead::class.java)
             })
             .build()
     }

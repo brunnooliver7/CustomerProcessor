@@ -9,14 +9,16 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import javax.sql.DataSource
 
-@Configuration
+@Configuration(value = "GenerateBankAccountWriterConfig")
 class GenerateBankAccountWriter {
 
     @Bean
-    fun bankAccountWriter(@Qualifier("customersDataSource") dataSource: DataSource): JdbcBatchItemWriter<BankAccount> {
+    fun generateBankAccountsWriter(
+        @Qualifier("customersDataSource") dataSource: DataSource
+    ): JdbcBatchItemWriter<BankAccount> {
         return JdbcBatchItemWriterBuilder<BankAccount>()
             .dataSource(dataSource)
-            .sql(FileUtils.readSqlFromFile("sql/write/bank_account_writer.sql"))
+            .sql(FileUtils.readSqlFromFile("sql/write/generate_bank_accounts_writer.sql"))
             .beanMapped()
             .build()
     }

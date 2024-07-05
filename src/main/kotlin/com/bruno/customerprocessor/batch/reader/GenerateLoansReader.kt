@@ -7,13 +7,15 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import javax.sql.DataSource
 
-@Configuration
+@Configuration(value = "GenerateLoansReaderConfig")
 class GenerateLoansReader {
 
     @Bean
-    fun loanReader(@Qualifier("customersDataSource") dataSource: DataSource): ItemReader<Long> {
+    fun generateLoansReader(
+        @Qualifier("customersDataSource") dataSource: DataSource
+    ): ItemReader<Long> {
         return JdbcCursorItemReaderBuilder<Long>()
-            .name("Loan Reader")
+            .name("Generate Loans Reader")
             .dataSource(dataSource)
             .sql("SELECT id FROM customer")
             .rowMapper { rs, _ -> rs.getLong("id") }

@@ -1,7 +1,6 @@
 package com.bruno.customerprocessor.batch.step
 
-import com.bruno.customerprocessor.entity.external.BankAccount
-import com.bruno.customerprocessor.model.BankAccountRead
+import com.bruno.customerprocessor.entity.dinamic.ExternalData
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.repository.JobRepository
 import org.springframework.batch.core.step.builder.StepBuilder
@@ -12,20 +11,20 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
 
-@Configuration(value = "GenerateBankAccountsStepConfig")
-class GenerateBankAccountDataStep {
+@Configuration(value = "CollectDataStepConfig")
+class CollectDataStep {
 
     @Bean
-    fun generateBankAccounts(
+    fun collectDataStep(
         jobRepository: JobRepository,
         transactionManager: PlatformTransactionManager,
-        @Qualifier("generateBankAccountsReader") generateBankAccountsReader: ItemReader<BankAccountRead>,
-        @Qualifier("generateBankAccountsWriter") generateBankAccountsWriter: JdbcBatchItemWriter<BankAccount>
+        @Qualifier("collectDataReader") collectDataReader: ItemReader<ExternalData>,
+        @Qualifier("collectDataWriter") collectDataWriter: JdbcBatchItemWriter<ExternalData>
     ): Step {
-        return StepBuilder("Generate Bank Accounts Step", jobRepository)
-            .chunk<BankAccountRead, BankAccount>(20_000, transactionManager)
-            .reader(generateBankAccountsReader)
-            .writer(generateBankAccountsWriter)
+        return StepBuilder("Collect Data Step", jobRepository)
+            .chunk<ExternalData, ExternalData>(1_000, transactionManager)
+            .reader(collectDataReader)
+            .writer(collectDataWriter)
             .build()
     }
 

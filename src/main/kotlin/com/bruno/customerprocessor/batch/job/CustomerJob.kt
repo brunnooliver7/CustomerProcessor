@@ -3,6 +3,7 @@ package com.bruno.customerprocessor.batch.job
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.job.builder.JobBuilder
+import org.springframework.batch.core.job.flow.Flow
 import org.springframework.batch.core.repository.JobRepository
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
@@ -14,18 +15,19 @@ class CustomerJob {
     @Bean
     fun customerJobBean(
         jobRepository: JobRepository,
-        @Qualifier("generateExternalDataStep") generateExternalDataStep: Step,
-        @Qualifier("generateDomainDataStep") generateDomainDataStep: Step,
-        @Qualifier("gatherExtDataStep") gatherExternalDataStep: Step,
-        @Qualifier("loanRulesStep") loanRulesStep: Step,
-        @Qualifier("calculusResultsStep") calculusResultsStep: Step
+        @Qualifier("generateDataFlow") generateDataFlow: Flow,
+        @Qualifier("populateReferenceTablesStep") populateReferenceTablesStep: Step,
+        @Qualifier("collectDataStep") collectDataStep: Step,
+        @Qualifier("calculusRuleStep") calculusRuleStep: Step,
+        @Qualifier("calculusStep") calculusStep: Step
     ): Job {
         return JobBuilder("Customer Job", jobRepository)
-            .start(generateExternalDataStep)
-            .next(generateDomainDataStep)
-            .next(gatherExternalDataStep)
-            .next(loanRulesStep)
-            .next(calculusResultsStep)
+            .start(generateDataFlow)
+            .next(populateReferenceTablesStep)
+            .next(collectDataStep)
+            .next(calculusRuleStep)
+            .next(calculusStep)
+            .end()
             .build()
     }
 

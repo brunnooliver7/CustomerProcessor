@@ -1,7 +1,6 @@
 package com.bruno.customerprocessor.batch.step
 
-import com.bruno.customerprocessor.entity.external.BankAccount
-import com.bruno.customerprocessor.model.BankAccountRead
+import com.bruno.customerprocessor.entity.dinamic.CalculusRule
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.repository.JobRepository
 import org.springframework.batch.core.step.builder.StepBuilder
@@ -12,20 +11,20 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
 
-@Configuration(value = "GenerateBankAccountsStepConfig")
-class GenerateBankAccountDataStep {
+@Configuration(value = "CalculusRuleStepConfig")
+class CalculusRuleStep {
 
     @Bean
-    fun generateBankAccounts(
+    fun calculusRuleStep(
         jobRepository: JobRepository,
         transactionManager: PlatformTransactionManager,
-        @Qualifier("generateBankAccountsReader") generateBankAccountsReader: ItemReader<BankAccountRead>,
-        @Qualifier("generateBankAccountsWriter") generateBankAccountsWriter: JdbcBatchItemWriter<BankAccount>
+        @Qualifier("calculusRuleReader") calculusRuleReader: ItemReader<CalculusRule>,
+        @Qualifier("calculusRuleWriter") calculusRuleWriter: JdbcBatchItemWriter<CalculusRule>
     ): Step {
-        return StepBuilder("Generate Bank Accounts Step", jobRepository)
-            .chunk<BankAccountRead, BankAccount>(20_000, transactionManager)
-            .reader(generateBankAccountsReader)
-            .writer(generateBankAccountsWriter)
+        return StepBuilder("Calculus Rule Step", jobRepository)
+            .chunk<CalculusRule, CalculusRule>(1_000, transactionManager)
+            .reader(calculusRuleReader)
+            .writer(calculusRuleWriter)
             .build()
     }
 

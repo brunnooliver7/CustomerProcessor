@@ -1,7 +1,7 @@
 package com.bruno.customerprocessor.batch.step
 
-import com.bruno.customerprocessor.entity.external.BankAccount
-import com.bruno.customerprocessor.model.BankAccountRead
+import com.bruno.customerprocessor.entity.external.Revenue
+import com.bruno.customerprocessor.model.RevenueRead
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.repository.JobRepository
 import org.springframework.batch.core.step.builder.StepBuilder
@@ -12,20 +12,20 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
 
-@Configuration(value = "GenerateBankAccountsStepConfig")
-class GenerateBankAccountDataStep {
+@Configuration(value = "GenerateRevenuesStepConfig")
+class GenerateRevenuesStep {
 
     @Bean
-    fun generateBankAccounts(
+    fun generateRevenuesStep(
         jobRepository: JobRepository,
         transactionManager: PlatformTransactionManager,
-        @Qualifier("generateBankAccountsReader") generateBankAccountsReader: ItemReader<BankAccountRead>,
-        @Qualifier("generateBankAccountsWriter") generateBankAccountsWriter: JdbcBatchItemWriter<BankAccount>
+        @Qualifier("generateRevenuesReader") generateRevenuesReader: ItemReader<RevenueRead>,
+        @Qualifier("generateRevenuesWriter") generateRevenuesWriter: JdbcBatchItemWriter<Revenue>
     ): Step {
-        return StepBuilder("Generate Bank Accounts Step", jobRepository)
-            .chunk<BankAccountRead, BankAccount>(20_000, transactionManager)
-            .reader(generateBankAccountsReader)
-            .writer(generateBankAccountsWriter)
+        return StepBuilder("Generate Revenues Step", jobRepository)
+            .chunk<RevenueRead, Revenue>(20_000, transactionManager)
+            .reader(generateRevenuesReader)
+            .writer(generateRevenuesWriter)
             .build()
     }
 

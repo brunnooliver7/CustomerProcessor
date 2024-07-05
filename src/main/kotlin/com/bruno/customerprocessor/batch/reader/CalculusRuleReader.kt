@@ -1,7 +1,7 @@
 package com.bruno.customerprocessor.batch.reader
 
 import com.bruno.customerprocessor.batch.utils.FileUtils
-import com.bruno.customerprocessor.model.RevenueRead
+import com.bruno.customerprocessor.entity.dinamic.CalculusRule
 import org.springframework.batch.item.ItemReader
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder
 import org.springframework.beans.factory.annotation.Qualifier
@@ -10,26 +10,27 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.jdbc.core.RowMapper
 import javax.sql.DataSource
 
-@Configuration(value = "GenerateRevenuesReaderConfig")
-class GenerateRevenuesReader {
+@Configuration(value = "CalculusRuleReaderConfig")
+class CalculusRuleReader {
 
     @Bean
-    fun generateRevenuesReader(
+    fun calculusRuleReader(
         @Qualifier("customersDataSource") dataSource: DataSource
-    ): ItemReader<RevenueRead> {
-        return JdbcCursorItemReaderBuilder<RevenueRead>()
-            .name("Generate Revenues Reader")
+    ): ItemReader<CalculusRule> {
+        return JdbcCursorItemReaderBuilder<CalculusRule>()
+            .name("Calculus Rule Reader")
             .dataSource(dataSource)
-            .sql(FileUtils.readSqlFromFile("sql/read/generate_revenues_reader.sql"))
-            .rowMapper(revenueRowMapper())
+            .sql(FileUtils.readSqlFromFile("sql/read/calculus_rule_reader.sql"))
+            .rowMapper(calculusRuleRowMapper())
             .build()
     }
 
-    private fun revenueRowMapper(): RowMapper<RevenueRead> {
+    private fun calculusRuleRowMapper(): RowMapper<CalculusRule> {
         return RowMapper { rs, _ ->
-            RevenueRead(
-                customerId = rs.getLong("CUSTOMER_ID"),
-                bankAccountId = rs.getLong("BANK_ACCOUNT_ID"),
+            CalculusRule(
+                id = rs.getLong("RULE_ID"),
+                loanId = rs.getLong("LOAN_ID"),
+                ruleId = rs.getLong("CALCULUS_RULE_ID")
             )
         }
     }

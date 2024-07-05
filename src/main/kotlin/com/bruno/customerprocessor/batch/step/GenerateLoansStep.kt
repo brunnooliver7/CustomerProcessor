@@ -12,22 +12,22 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
 
-@Configuration
+@Configuration(value = "GenerateLoansStepConfig")
 class GenerateLoansStep {
 
     @Bean
-    fun generateLoanStepBean(
+    fun generateLoanStep(
         jobRepository: JobRepository,
         transactionManager: PlatformTransactionManager,
-        @Qualifier("loanReader") loanReader: ItemReader<Long>,
-        @Qualifier("generateLoansProcessor") loansProcessor: GenerateLoansProcessor,
-        @Qualifier("loanWriter") loanWriter: ItemWriter<List<Loan>>
+        @Qualifier("generateLoansReader") generateLoansReader: ItemReader<Long>,
+        @Qualifier("generateLoansProcessor") generateLoansProcessor: GenerateLoansProcessor,
+        @Qualifier("generateLoansWriter") generateLoansWriter: ItemWriter<List<Loan>>
     ): Step {
-        return StepBuilder("Loan Rule Step", jobRepository)
+        return StepBuilder("Generate Loans Step", jobRepository)
             .chunk<Long, List<Loan>>(10_000, transactionManager)
-            .reader(loanReader)
-            .processor(loansProcessor)
-            .writer(loanWriter)
+            .reader(generateLoansReader)
+            .processor(generateLoansProcessor)
+            .writer(generateLoansWriter)
             .build()
     }
 

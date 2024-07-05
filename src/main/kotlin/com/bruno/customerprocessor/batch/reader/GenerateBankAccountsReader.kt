@@ -1,6 +1,6 @@
 package com.bruno.customerprocessor.batch.reader
 
-import com.bruno.customerprocessor.model.BankAccountData
+import com.bruno.customerprocessor.model.BankAccountRead
 import org.springframework.batch.item.ItemReader
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper
@@ -12,29 +12,29 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
 import javax.sql.DataSource
 
-@Configuration
+@Configuration(value = "GenerateBankAccountReaderConfig")
 class GenerateBankAccountReader {
 
     @Bean
     fun generateBankAccountsReader(
         @Qualifier("customersDataSource") dataSource: DataSource
-    ): ItemReader<BankAccountData> {
-        return FlatFileItemReaderBuilder<BankAccountData>()
+    ): ItemReader<BankAccountRead> {
+        return FlatFileItemReaderBuilder<BankAccountRead>()
             .name("Generate Bank Accounts Reader")
             .resource(ClassPathResource("csv/bank_account.csv"))
             .linesToSkip(1)
-            .lineMapper(bankAccountLineMapper())
+            .lineMapper(bankAccountMapper())
             .build()
     }
 
-    private fun bankAccountLineMapper(): DefaultLineMapper<BankAccountData> {
-        return DefaultLineMapper<BankAccountData>().apply {
+    private fun bankAccountMapper(): DefaultLineMapper<BankAccountRead> {
+        return DefaultLineMapper<BankAccountRead>().apply {
             setLineTokenizer(DelimitedLineTokenizer().apply {
                 setDelimiter(DelimitedLineTokenizer.DELIMITER_COMMA)
                 setNames("customerId", "bankId", "accountNumber", "balance")
             })
-            setFieldSetMapper(BeanWrapperFieldSetMapper<BankAccountData>().apply {
-                setTargetType(BankAccountData::class.java)
+            setFieldSetMapper(BeanWrapperFieldSetMapper<BankAccountRead>().apply {
+                setTargetType(BankAccountRead::class.java)
             })
         }
     }
