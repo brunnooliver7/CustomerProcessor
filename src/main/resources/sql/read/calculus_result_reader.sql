@@ -1,4 +1,4 @@
-SELECT CRE.id       as ID_CALCULUS_RESULT,
+SELECT CRE.id       as CALCULUS_RESULT_ID,
        ED.loan_id   as LOAN_ID,
        ED.debt      AS DEBT,
        P.percentage AS PERCENTAGE
