@@ -19,7 +19,7 @@ FROM DBO.customer C
          OUTER APPLY (SELECT R.amount
                       FROM DBO.revenue R
                       WHERE R.customer_id = C.id) R
-         OUTER APPLY (SELECT *
+         CROSS APPLY (SELECT *
                       FROM DBO.loan L
                       WHERE L.customer_id = C.id) L
          OUTER APPLY (SELECT ED.id
