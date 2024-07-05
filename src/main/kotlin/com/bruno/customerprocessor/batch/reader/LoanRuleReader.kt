@@ -21,7 +21,6 @@ class LoanRuleReader {
             .sql(FileUtils.readSqlFromFile("sql/read/loan_rule_reader.sql"))
             .rowMapper(loadRuleRowMapper())
             .build()
-
     }
 
     private fun loadRuleRowMapper(): RowMapper<LoanRule> {

@@ -15,7 +15,6 @@ import javax.sql.DataSource
 @Configuration
 class GenerateBankAccountReader {
 
-
     @Bean
     fun generateBankAccountsReader(
         @Qualifier("customersDataSource") dataSource: DataSource
