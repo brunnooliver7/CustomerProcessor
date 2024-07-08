@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
 import javax.sql.DataSource
 
-@Configuration(value = "GenerateBankAccountReaderConfig")
-class GenerateBankAccountReader {
+@Configuration(value = "GenerateBankAccountsReaderConfig")
+class GenerateBankAccountsReader {
 
     @Bean
     fun generateBankAccountsReader(
