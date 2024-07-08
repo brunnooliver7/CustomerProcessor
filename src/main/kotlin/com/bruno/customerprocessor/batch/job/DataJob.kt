@@ -1,6 +1,5 @@
 package com.bruno.customerprocessor.batch.job
 
-import org.springframework.batch.core.BatchStatus
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.job.builder.JobBuilder
@@ -10,20 +9,18 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
-@Configuration(value = "CustomerJobConfig")
-class CustomerJob {
+@Configuration(value = "DataJobConfig")
+class DataJob {
 
     @Bean
-    fun customerJob(
+    fun dataJob(
         jobRepository: JobRepository,
-        @Qualifier("collectDataStep") collectDataStep: Step,
-        @Qualifier("calculusRuleStep") calculusRuleStep: Step,
-        @Qualifier("calculusFlow") calculusFlow: Flow
+        @Qualifier("generateDataFlow") generateDataFlow: Flow,
+        @Qualifier("populateReferenceTablesStep") populateReferenceTablesStep: Step,
     ): Job {
-        return JobBuilder("Customer Job", jobRepository)
-            .start(collectDataStep)
-            .next(calculusRuleStep).on(BatchStatus.COMPLETED.toString())
-            .to(calculusFlow)
+        return JobBuilder("Data Job", jobRepository)
+            .start(generateDataFlow)
+            .next(populateReferenceTablesStep)
             .end()
             .build()
     }
